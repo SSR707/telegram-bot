@@ -1,20 +1,14 @@
-import express from "express";
 import { bot } from "./src/bot/index.js";
 import { connectMongodb } from "./src/config/index.js";
+import express from "express";
 
 const app = express();
-const PORT = process.env.PORT || 3003;
-const DOMAIN = process.env.DOMAIN;
-
-connectMongodb();
-
-app.use(express.json());
-app.use(`/${process.env.BOT_TOKEN}`, bot.webhookCallback());
-
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   res.send("Telegram bot ishlayapti!");
 });
-
-app.listen(PORT, () => {
-  console.log(`Server ishlayapti: ${DOMAIN || "http://localhost"}:${PORT}`);
+app.listen(process.env.PORT, () => {
+  connectMongodb();
+  console.log("bot start");
+  bot.start();
+  console.log(process.env.PORT + " server started");
 });

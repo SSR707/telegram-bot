@@ -2,6 +2,8 @@ import { Bot } from "grammy";
 import { start } from "../command/command.js";
 import { addSend, getAds } from "../action/hears.js";
 import { callback_query, sendOn } from "../action/on.js";
+import { config } from "dotenv";
+config()
 process.meyData = {};
 
 export const bot = new Bot(process.env.BOT_TOKEN);
