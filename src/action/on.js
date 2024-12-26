@@ -2,19 +2,20 @@ import { keyboard } from "../keyboard/keyboard.js";
 import { ElnSave } from "../utils/eln.utils.js";
 import { JobLog, ShogirtLog, TeacherLog, TeamLog } from "../utils/log.utils.js";
 export const sendOn = async (ctx) => {
-  if (ctx.message.text === "ISH KERAK" && !process.meyData.category) {
-    process.meyData.category = "ISH KERAK";
+  const category = ctx.message.text.split(' ')[1] + ' ' + ctx.message.text.split(' ')[2]
+  if (category === "ISH KERAK" && !process.meyData.category) {
+    process.meyData.category  = "ISH KERAK";
     process.meyData.name = true;
   }
-  if (ctx.message.text === "USTOZ KERAK" && !process.meyData.category) {
+  if (category === "USTOZ KERAK" && !process.meyData.category) {
     process.meyData.category = "USTOZ KERAK";
     process.meyData.name = true;
   }
-  if (ctx.message.text === "SHOGIRD KERAK" && !process.meyData.category) {
+  if (category === "SHOGIRD KERAK" && !process.meyData.category) {
     process.meyData.category = "SHOGIRD KERAK";
     process.meyData.name = true;
   }
-  if (ctx.message.text === "SHERIK KERAK" && !process.meyData.category) {
+  if (category === "SHERIK KERAK" && !process.meyData.category) {
     process.meyData.category = "SHERIK KERAK";
     process.meyData.name = true;
   }

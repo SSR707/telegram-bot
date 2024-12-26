@@ -3,8 +3,8 @@ import { getById, UserSave } from "../utils/user.utils.js";
 
 export const start = async (ctx) => {
   const keyboard = new Keyboard()
-  .text("Elon berish")
-  .text("Eloni Korish")
+  .text("Elon berish 📝")
+  .text("Elonlarimni Korish 📑")
   .row()
   .resized()
   .oneTime();
