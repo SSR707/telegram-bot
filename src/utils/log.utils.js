@@ -11,7 +11,8 @@ export const JobLog = (data) => {
 👨🏻‍💻 Kasbi: ${data.work_place}
 🕰 Murojaat qilish vaqti: ${data.call_time}
 🔎 Maqsad: ${data.info}
-`;
+
+👉 @DeveloperJobsUz`;
 };
 
 export const TeacherLog = (data) => {
@@ -26,7 +27,8 @@ export const TeacherLog = (data) => {
 👨🏻‍💻 Kasbi: ${data.work_place}
 🕰 Murojaat qilish vaqti: ${data.call_time}
 🔎 Maqsad: ${data.info}
-  `;
+  
+👉 @DeveloperJobsUz`;
 };
 
 export const TeamLog = (data) => {
@@ -40,7 +42,8 @@ export const TeamLog = (data) => {
 👨🏻‍💻 Kasbi: ${data.work_place}
 🕰 Murojaat qilish vaqti: ${data.call_time}
 🔎 Maqsad: ${data.info}
-    `;
+    
+👉 @DeveloperJobsUz`;
 };
 
 export const ShogirtLog = (data) => {
@@ -55,5 +58,6 @@ export const ShogirtLog = (data) => {
 👨🏻‍💻 Kasbi: ${data.work_place}
 🕰 Murojaat qilish vaqti: ${data.call_time}
 🔎 Maqsad: ${data.info}
-      `;
+      
+👉 @DeveloperJobsUz`;
 };

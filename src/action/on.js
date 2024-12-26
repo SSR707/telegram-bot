@@ -1,10 +1,11 @@
 import { keyboard } from "../keyboard/keyboard.js";
-import { ElnSave } from "../utils/eln.utils.js";
+import { deleteEln, ElnSave, getEln, getElnId } from "../utils/eln.utils.js";
 import { JobLog, ShogirtLog, TeacherLog, TeamLog } from "../utils/log.utils.js";
 export const sendOn = async (ctx) => {
-  const category = ctx.message.text.split(' ')[1] + ' ' + ctx.message.text.split(' ')[2]
+  const category =
+    ctx.message.text.split(" ")[1] + " " + ctx.message.text.split(" ")[2];
   if (category === "ISH KERAK" && !process.meyData.category) {
-    process.meyData.category  = "ISH KERAK";
+    process.meyData.category = "ISH KERAK";
     process.meyData.name = true;
   }
   if (category === "USTOZ KERAK" && !process.meyData.category) {
@@ -22,7 +23,6 @@ export const sendOn = async (ctx) => {
   if (!process.meyData.category) {
     return;
   }
-  console.log();
   if (process.meyData.name) {
     process.meyData.category = "ISH KERAK";
     await ctx.reply(`👨‍💼 Ism, familiyangizni kiriting:`, {
@@ -79,6 +79,7 @@ export const sendOn = async (ctx) => {
     if (process.meyData.category === "ISH KERAK") {
       delete process.meyData.name;
       const log = JobLog(process.meyData);
+      process.dataLog = log;
       await ctx.reply(log, {
         reply_markup: {
           inline_keyboard: [
@@ -90,6 +91,7 @@ export const sendOn = async (ctx) => {
     } else if (process.meyData.category === "USTOZ KERAK") {
       delete process.meyData.name;
       const log = TeacherLog(process.meyData);
+      process.dataLog = log;
       await ctx.reply(log, {
         reply_markup: {
           inline_keyboard: [
@@ -101,6 +103,7 @@ export const sendOn = async (ctx) => {
     } else if (process.meyData.category === "SHOGIRD KERAK") {
       delete process.meyData.name;
       const log = ShogirtLog(process.meyData);
+      process.dataLog = log;
       await ctx.reply(log, {
         reply_markup: {
           inline_keyboard: [
@@ -112,6 +115,7 @@ export const sendOn = async (ctx) => {
     } else if (process.meyData.category === "SHERIK KERAK") {
       delete process.meyData.name;
       const log = TeamLog(process.meyData);
+      process.dataLog = log;
       await ctx.reply(log, {
         reply_markup: {
           inline_keyboard: [
@@ -131,7 +135,16 @@ export const callback_query = async (ctx) => {
       parse_mode: "HTML",
       reply_markup: keyboard,
     });
-    await ElnSave(process.meyData)
+    const sentMessage = await ctx.api.sendMessage(
+      -1002252990788,
+      process.dataLog,
+      {
+        parse_mode: "MarkdownV2",
+      }
+    );
+
+    const postId = sentMessage.message_id;
+    await ElnSave({ ...process.meyData, post_id: postId });
     process.meyData = {};
   } else if (callbackData === "SendNo") {
     await ctx.deleteMessage();
@@ -140,5 +153,17 @@ export const callback_query = async (ctx) => {
       reply_markup: keyboard,
     });
     process.meyData = {};
+  } else if (
+    ctx.callbackQuery.message.reply_markup.inline_keyboard[0][0].text ===
+    "Malumotni Ochirish 🚮"
+  ) {
+    const eln = await getElnId(callbackData);
+    await ctx.deleteMessage(ctx.callbackQuery.message.id);
+    await ctx.api.deleteMessage( -1002252990788, eln.post_id);
+    await deleteEln(callbackData);
+    await ctx.reply(`Malumot Ochirildi 🚮`, {
+      parse_mode: "HTML",
+      reply_markup: keyboard,
+    });
   }
 };

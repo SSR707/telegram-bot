@@ -14,7 +14,7 @@ const adsSchema = new mongoose.Schema(
     region: String,
     call_time: String,
     info: String,
-    post_id: { type: String,default:'dsagdf' }
+    post_id: { type: String }
   },
 );
 

@@ -37,13 +37,13 @@ export const getAds = async (ctx) => {
     }
     await ctx.reply(log, {
       reply_markup: {
-        inline_keyboard: [[{ text: "Ochirish 🚮", callback_data: value._id }]],
+        inline_keyboard: [[{ text: "Malumotni Ochirish 🚮", callback_data: value._id.toString()}]],
       },
     });
   }
   await ctx.reply(
     `Malumotlarni kanaldan ochirmoqchi bolsangiz
-Ochirish 🚮 ⬅️ tugmasini bosing
+Malumotni Ochirish 🚮 ⬅️ tugmasini bosing
 `,
     {
       reply_markup: keyboardMenu,

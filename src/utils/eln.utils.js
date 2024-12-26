@@ -8,3 +8,11 @@ export const getEln = async (id) => {
     return Ads.find({user_id: id})
   };
   
+export const deleteEln = async (id) => {
+    await Ads.findByIdAndDelete(id)
+}
+
+export const getElnId = async (id) => {
+    return Ads.findOne({_id: id})
+  };
+  
